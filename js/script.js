@@ -1,7 +1,8 @@
 // Toggle Class Active Hamburger Menu
 const navbarNav = document.querySelector(".navbar-nav");
-document.querySelector("#hamburger-menu").onclick = () => {
+document.querySelector("#hamburger-menu").onclick = (e) => {
   navbarNav.classList.toggle("active");
+  e.preventDefault();
 };
 
 // Toggle Class Active Search Form
