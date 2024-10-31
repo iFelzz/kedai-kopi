@@ -228,6 +228,59 @@ body {
   color: var(--primary);
 } */
 
+/* Checkout Form */
+
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-top: 1px dashed rgb(255, 255, 255);
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.form-container h5 {
+  text-align: left;
+  font-size: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.form-container form {
+  width: 100%;
+  text-align: center;
+}
+
+.form-container label {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.form-container span {
+  text-align: right;
+}
+
+.form-container input {
+  background-color: #ddd;
+  padding: 5px;
+  font-size: 1rem;
+  width: 70%;
+}
+
+.form-container .checkout-button {
+  padding: 7px 40%;
+  background-color: royalblue;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 4px;
+  margin: auto;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
 /* Hero Section */
 .hero {
   min-height: 100vh;
