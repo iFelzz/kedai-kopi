@@ -15,10 +15,16 @@
     <!-- Local CSS -->
     <link rel="stylesheet" href="css/style.css" />
     <title>Kopxue | Tempatnya Ngopi dan Nyusu</title>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- App.js -->
+    <script src="/src/app.js"></script>
   </head>
   <body>
     <!-- Navbar Start -->
-    <nav class="navbar">
+    <nav class="navbar" x-data>
       <a href="#" class="navbar-logo">Kop<span>xue</span>.</a>
 
       <div class="navbar-nav">
@@ -31,7 +37,10 @@
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart-button"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
         <a href="#?" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
 
@@ -44,30 +53,26 @@
 
       <!-- Shopping Cart Start -->
       <div class="shopping-cart">
-        <div class="cart-item">
-          <img src="img/products/1.jpeg" alt="Produk-1" />
-          <div class="item-detail">
-            <h3>Product 1</h3>
-            <div class="item-price">IDR 59k</div>
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+            <img :src="`img/products/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                <span id="subtotal-quantity" x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>
+                <br />
+                <span>Sub Total : </span>
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
+            <!-- <i data-feather="trash-2" class="remove-item"></i> -->
           </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
-        <div class="cart-item">
-          <img src="img/products/2.jpeg" alt="Produk-2" />
-          <div class="item-detail">
-            <h3>Product 2</h3>
-            <div class="item-price">IDR 59k</div>
-          </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
-        <div class="cart-item">
-          <img src="img/products/3.jpeg" alt="Produk-3" />
-          <div class="item-detail">
-            <h3>Product 3</h3>
-            <div class="item-price">IDR 59k</div>
-          </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
+        </template>
+        <h4 id="empty-cart" x-show="!$store.cart.items.length">Nothing to see here. Please add some products :D</h4>
+        <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
       </div>
       <!-- Shopping Cart End -->
     </nav>
@@ -138,151 +143,41 @@
     <!-- Menu Section End -->
 
     <!-- Product Section Start -->
-    <section class="products" id="products">
+    <section class="products" id="products" x-data="products">
       <h2>Our<span> Best</span> Products!</h2>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium impedit reprehenderit, corrupti recusandae illo aliquam?</p>
 
       <div class="row">
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/1.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Arabian Kopxue Raw Coffee Beans</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="/img/feather-sprite.svg#plus-circle" />
+                </svg>
+              </a>
+              <a href="#" class="item-detail-button">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="/img/feather-sprite.svg#info" />
+                </svg>
+              </a>
             </div>
-            <div class="product-price">IDR 75k</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/2.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Plain Milk Kopxue Powder</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
+            <div class="product-image">
+              <img :src="`img/products/${item.img}`" :alt="item.name" />
             </div>
-            <div class="product-price">IDR 125k</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/3.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Kopxue Latte Instant Powder</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+                <i data-feather="star" class="star-full"></i>
+              </div>
+              <div class="product-price" x-text="rupiah(item.price)"></div>
             </div>
-            <div class="product-price">IDR 55k</div>
           </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/4.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Kopxue Matcha Latte</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-            </div>
-            <div class="product-price">IDR 99k</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/5.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Kopxue Thai Milk Tea</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-            </div>
-            <div class="product-price">IDR 99k</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/6.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Kopxue Pure Green Tea</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-            </div>
-            <div class="product-price">IDR 99k</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="plus-circle"></i></a>
-            <a href="#" class="item-detail-button"><i data-feather="info"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/products/7.jpeg" alt="Produk-1" />
-          </div>
-          <div class="product-content">
-            <h3>Kopxue Instant Boba</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-            </div>
-            <div class="product-price">IDR 99k</div>
-          </div>
-        </div>
+        </template>
       </div>
     </section>
     <!-- Product Section End -->

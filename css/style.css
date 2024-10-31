@@ -1,7 +1,7 @@
 :root {
   --primary: #b6895b;
   --bg: #010101;
-  --hider: #000000a6;
+  --hider: #000000bd;
 }
 
 * {
@@ -123,6 +123,24 @@ body {
 }
 
 /* Shopping Cart */
+
+#shopping-cart-button {
+  position: relative;
+}
+
+#shopping-cart-button .quantity-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  background-color: #ff4c20;
+  color: #000;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  right: -12px;
+}
+
 .shopping-cart {
   position: absolute;
   top: 100%;
@@ -141,29 +159,66 @@ body {
 
 .shopping-cart .cart-item {
   display: flex;
+  /* background-color: #00000080; */
   margin: 2rem 0;
   align-items: center;
   gap: 1.5rem;
   padding-bottom: 1rem;
+  /* padding-top: 1rem; */
+  padding-left: 0.4rem;
   border-bottom: 1px dashed #bebebe;
   position: relative;
 }
 
 .shopping-cart img {
-  height: 6rem;
+  height: 4rem;
   border-radius: 50%;
 }
 
 .shopping-cart h3 {
-  font-size: 1.6rem;
-  padding-bottom: 0.5rem;
+  font-size: 1.4rem;
+  /* padding-bottom: 0.5rem; */
 }
 
 .shopping-cart .item-price {
   font-size: 1.2rem;
 }
 
-.shopping-cart .remove-item {
+.shopping-cart .cart-item #add,
+.shopping-cart .cart-item #remove {
+  display: inline-block;
+  padding: 2px 5px;
+  cursor: pointer;
+  margin: 0 8px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 50%;
+}
+
+.shopping-cart .cart-item #add:hover,
+.shopping-cart .cart-item #remove:hover {
+  background-color: var(--primary);
+}
+
+#subtotal-quantity {
+  /* color: #000;
+  background-color: white; */
+  padding: 0 0.5rem;
+}
+
+.shopping-cart h4 {
+  font-size: 1.6rem;
+  margin-top: -1rem;
+  text-align: left;
+}
+
+.shopping-cart h4#empty-cart {
+  margin-top: 1rem;
+  text-align: center;
+}
+/* .shopping-cart .remove-item {
   position: absolute;
   right: 1rem;
   cursor: pointer;
@@ -171,7 +226,7 @@ body {
 
 .shopping-cart .remove-item:hover {
   color: var(--primary);
-}
+} */
 
 /* Hero Section */
 .hero {
