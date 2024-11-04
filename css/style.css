@@ -281,6 +281,10 @@ body {
   margin-top: 8px;
 }
 
+.form-container .checkout-button.disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
 /* Hero Section */
 .hero {
   min-height: 100vh;
@@ -785,5 +789,18 @@ footer .credit a {
 
   .about .row .content p {
     text-align: center;
+  }
+
+  #shopping-cart-button .quantity-badge {
+    display: inline-block;
+    padding: 1px 5px;
+    background-color: #ff4c20;
+    color: #000;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: -6px;
   }
 }

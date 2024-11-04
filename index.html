@@ -18,11 +18,14 @@
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
+
+    <!-- Midtrans Snap -->
+    <script type="text/javascript" src="https://app.stg.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-YkZQka5EpAJ6hYrO"></script>
   </head>
   <body>
     <!-- Navbar Start -->
     <nav class="navbar" x-data>
-      <a href="#" class="navbar-logo">Kop<span>xue</span>.</a>
+      <a href="" class="navbar-logo">Kop<span>xue</span>.</a>
 
       <div class="navbar-nav">
         <a href="#home">Home</a>
@@ -72,6 +75,8 @@
         <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
         <div class="form-container" x-show="$store.cart.items.length">
           <form action="" id="checkoutForm">
+            <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)" />
+            <input type="hidden" name="total" x-model="$store.cart.total" />
             <h5>Customer Detail</h5>
 
             <label for="name">
@@ -89,7 +94,7 @@
               <input type="number" name="phone" id="phone" autocomplete="off" />
             </label>
 
-            <button class="checkout-button" id="checkout-button" type="submit" value="checkout">Pay Now</button>
+            <button class="checkout-button disabled" id="checkout-button" type="submit" value="checkout">Pay Now</button>
           </form>
         </div>
       </div>
